@@ -5,7 +5,7 @@ Helm chart for setting up AWS load balancer controller in your EKS cluster to pr
 
 ### Namespace
 
-Create a new namespace `platform` where we will install the `aws-load-balancer-controller` services.
+Create a new namespace `platform` where we will install the `aws-load-balancer-controller` service.
 
 ```bash
 kubectl create namespace platform
@@ -21,7 +21,7 @@ We will be using IRSA (IAM Roles for Service Accounts) to give the required perm
 
 3. Update the trust relationship of the IAM role `aws-load-balancer-controller-rol` as below replacing the `account_id`, `eks_cluster_id` and `region` with the appropriate values.
 
-This trust relationship allows the pod using the serviceaccount `aws-load-balancer-controller` in `platform` namespace to assume the role.
+This trust relationship allows pods with serviceaccount `aws-load-balancer-controller` in `platform` namespace to assume the role.
 
 ```json
 {
@@ -43,6 +43,23 @@ This trust relationship allows the pod using the serviceaccount `aws-load-balanc
   ]
 }
 ```
+
+### Service Account
+
+Create a new service account in the `platform` namespace and associate it with the IAM role which we had created earlier.
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: aws-load-balancer-controller
+  namespace: platform
+metadata:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::<AWS_ACCOUNT_ID>:role/aws-load-balancer-controller-rol
+```
+
+We specify the service account to be used by the pods in the file `stages/shared-values.ymal`
 
 ### Config Updates
 
