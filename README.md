@@ -15,6 +15,8 @@ kubectl create namespace platform
 
 We will be using IRSA (IAM Roles for Service Accounts) to give the required permissions to the AWS Load Balancer Controller pod to provision load balancers.
 
+`Note: You need to create an OIDC provider for your cluster to make use of IRSA. Refer - https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html`
+
 1. Create a new IAM policy `aws-load-balancer-controller-pol` with the policy document at `iam/policy.json`
 
 2. Create a new IAM role `aws-load-balancer-controller-rol` and attach the IAM policy `aws-load-balancer-controller-pol`
