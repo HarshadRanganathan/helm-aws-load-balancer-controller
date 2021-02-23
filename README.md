@@ -48,15 +48,16 @@ This trust relationship allows pods with serviceaccount `aws-load-balancer-contr
 
 Create a new service account in the `platform` namespace and associate it with the IAM role which we had created earlier.
 
-```yaml
+```bash
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: aws-load-balancer-controller
   namespace: platform
-metadata:
   annotations:
     eks.amazonaws.com/role-arn: arn:aws:iam::<AWS_ACCOUNT_ID>:role/aws-load-balancer-controller-rol
+EOF
 ```
 
 We specify the service account to be used by the pods in the file `stages/shared-values.ymal`
