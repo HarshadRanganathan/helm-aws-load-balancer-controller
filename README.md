@@ -12,7 +12,7 @@ kubectl create namespace platform
 2. Update `stages/prod/prod-values.yaml` file with EKS cluster and VPC Id.
 
 ```yaml
-clusterName: # Your EKS cluster id here
+clusterName: # Your EKS cluster name here
 vpcId: # Your VPC id here
 ```
 
