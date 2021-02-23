@@ -12,7 +12,7 @@ Table of Contents
          * [IAM](#iam)
          * [Service Account](#service-account)
          * [Config Updates](#config-updates)
-      * [Usage](#usage)
+      * [Install/Upgrade Chart](#installupgrade-chart)
 
 ## Pre-requisites
 
