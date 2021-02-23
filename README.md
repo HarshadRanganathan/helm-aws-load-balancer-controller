@@ -11,7 +11,34 @@ kubectl create namespace platform
 
 2. We will be using IRSA (IAM Roles for Service Accounts) to give the required permissions to the AWS Load Balancer Controller pod to provision load balancers.
 
-Create a new IAM policy `aws-load-balancer-controller-pol` with the policy document at `iam/policy.json`
+- Create a new IAM policy `aws-load-balancer-controller-pol` with the policy document at `iam/policy.json`
+
+- Create a new IAM role `aws-load-balancer-controller-rol` and attach the IAM policy `aws-load-balancer-controller-pol`
+
+- Update the trust relationship of the IAM role `aws-load-balancer-controller-rol` as below replacing the `account_id`, `eks_cluster_id` and `region` with the appropriate values.
+
+This trust relationship allows the pod using the serviceaccount `aws-load-balancer-controller` in `platform` namespace to assume the role.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<account_id>:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/<eks_cluster_id>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "oidc.eks.<region>.amazonaws.com/id/<eks_cluster_id>:sub": "system:serviceaccount:platform:aws-load-balancer-controller"
+        }
+      }
+    }
+  ]
+}
+```
 
 3. Update `stages/prod/prod-values.yaml` file with EKS cluster and VPC Id.
 
