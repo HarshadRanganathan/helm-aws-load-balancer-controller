@@ -1,6 +1,17 @@
 # helm-aws-load-balancer-controller
 Helm chart for setting up AWS load balancer controller in your EKS cluster to provision LB
 
+Table of Contents
+=================
+
+   * [helm-aws-load-balancer-controller](#helm-aws-load-balancer-controller)
+      * [Pre-requisites](#pre-requisites)
+         * [Namespace](#namespace)
+         * [IAM](#iam)
+         * [Service Account](#service-account)
+         * [Config Updates](#config-updates)
+      * [Usage](#usage)
+
 ## Pre-requisites
 
 ### Namespace
