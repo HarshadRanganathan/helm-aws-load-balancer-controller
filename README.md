@@ -1,6 +1,8 @@
 # helm-aws-load-balancer-controller
 Helm chart for setting up AWS load balancer controller in your EKS cluster to provision LB
 
+Chart Reference - https://github.com/aws/eks-charts
+
 Table of Contents
 =================
 
@@ -84,7 +86,7 @@ clusterName: # Your EKS cluster name here
 vpcId: # Your VPC id here
 ```
 
-## Usage
+## Install/Upgrade Chart
 
 Run below helm command to install/upgrade the helm chart by providing shared and stage specific values.
 
