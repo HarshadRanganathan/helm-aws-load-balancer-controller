@@ -3,19 +3,23 @@ Helm chart for setting up AWS load balancer controller in your EKS cluster to pr
 
 ## Pre-requisites
 
-1. Create a new namespace `platform` where we will install the `aws-load-balancer-controller` services.
+### Namespace
+
+Create a new namespace `platform` where we will install the `aws-load-balancer-controller` services.
 
 ```bash
 kubectl create namespace platform
 ```
 
-2. We will be using IRSA (IAM Roles for Service Accounts) to give the required permissions to the AWS Load Balancer Controller pod to provision load balancers.
+### IAM
 
-- Create a new IAM policy `aws-load-balancer-controller-pol` with the policy document at `iam/policy.json`
+We will be using IRSA (IAM Roles for Service Accounts) to give the required permissions to the AWS Load Balancer Controller pod to provision load balancers.
 
-- Create a new IAM role `aws-load-balancer-controller-rol` and attach the IAM policy `aws-load-balancer-controller-pol`
+1. Create a new IAM policy `aws-load-balancer-controller-pol` with the policy document at `iam/policy.json`
 
-- Update the trust relationship of the IAM role `aws-load-balancer-controller-rol` as below replacing the `account_id`, `eks_cluster_id` and `region` with the appropriate values.
+2. Create a new IAM role `aws-load-balancer-controller-rol` and attach the IAM policy `aws-load-balancer-controller-pol`
+
+3. Update the trust relationship of the IAM role `aws-load-balancer-controller-rol` as below replacing the `account_id`, `eks_cluster_id` and `region` with the appropriate values.
 
 This trust relationship allows the pod using the serviceaccount `aws-load-balancer-controller` in `platform` namespace to assume the role.
 
@@ -40,7 +44,9 @@ This trust relationship allows the pod using the serviceaccount `aws-load-balanc
 }
 ```
 
-3. Update `stages/prod/prod-values.yaml` file with EKS cluster and VPC Id.
+### Config Updates
+
+1. Update `stages/prod/prod-values.yaml` file with EKS cluster and VPC Id.
 
 ```yaml
 clusterName: # Your EKS cluster name here
