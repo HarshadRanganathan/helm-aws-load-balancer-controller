@@ -9,7 +9,11 @@ Helm chart for setting up AWS load balancer controller in your EKS cluster to pr
 kubectl create namespace platform
 ```
 
-2. Update `stages/prod/prod-values.yaml` file with EKS cluster and VPC Id.
+2. We will be using IRSA (IAM Roles for Service Accounts) to give the required permissions to the AWS Load Balancer Controller pod to provision load balancers.
+
+Create a new IAM policy `aws-load-balancer-controller-pol` with the policy document at `iam/policy.json`
+
+3. Update `stages/prod/prod-values.yaml` file with EKS cluster and VPC Id.
 
 ```yaml
 clusterName: # Your EKS cluster name here
