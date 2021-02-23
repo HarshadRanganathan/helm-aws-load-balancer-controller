@@ -1,0 +1,2 @@
+clusterName: # Your EKS cluster id here
+vpcId: # Your VPC id here
