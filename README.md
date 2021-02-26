@@ -75,7 +75,7 @@ metadata:
 EOF
 ```
 
-We specify the service account to be used by the pods in the file `stages/shared-values.ymal`
+We specify the service account to be used by the pods in the file `stages/shared-values.yaml`
 
 ### Config Updates
 
